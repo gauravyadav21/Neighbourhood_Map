@@ -23,8 +23,8 @@
 		</div>
 		<article>
 		<div><center>Search By Name</center></div>
-			<input type="search" class="inputBox" placeholder="Choose an address from the list..." data-bind="value: searchQuery, valueUpdate: 'keyup'">
-			<div id="SearchList">
+			<input type="search" class="search" placeholder="Choose an address from the list..." data-bind="value: searchQuery, valueUpdate: 'keyup'">
+			<div class="searchList">
 				<ul class="list-group" data-bind="foreach: list">
 					<li class="list-group-item" data-bind="text: title, click: showMarker"></li>
 				</ul>
