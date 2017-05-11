@@ -51,7 +51,7 @@ function initMap() {
 
 	largeInfoWindow = new google.maps.InfoWindow();
 	var defaultIcon = makeMarkerIcon('FF0000');
-	var highlightedIcon = makeMarkerIcon('FF6347');
+	var highlightedIcon = makeMarkerIcon('ADFF2F');
 	map = new google.maps.Map(document.getElementById('map'),{
 		center: {lat:30.516147, lng: 76.659429},
 		styles: styles,
@@ -123,7 +123,7 @@ function initMap() {
 		return markerImage;
 	}
 
-googleapiError = () => {
+function googleapiError(){
 	viewModal.showError(true);
 	viewModal.error("Error while loading map");
 }
@@ -134,11 +134,6 @@ function getDetails( infowindow , marker){
 	var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search='+
                     marker.title+'&format=json&callback=wikiCallback';
 	// Wikipedia AJAX request goes here
-	var wikiRequestTimeout = setTimeout(function(){
-    	viewModel.showError(true);
-        viewModel.error('Error loading data')
-        largeInfoWindow.setContent('Error to load data')
-    }, 7000);
 	$.ajax({
 		url: wikiUrl,
 		dataType: 'jsonp',
@@ -151,20 +146,22 @@ function getDetails( infowindow , marker){
         		//console.log("url" + url);
         		content += '<ul><li><a href="'+url+'">' + article + '</a></li></ul>';
         	};
-        	if (articleList.length == 0){
-        		url='http://en.wikipedia.org/wiki/'+marker.title;
-        		content += '<ul><li><a href="'+url+'">' + marker.title + '</a></li></ul>';
+        	if( articleList == 0){
+        		content += "<div>Details not found.</div>"
         	}
-        	clearTimeout(wikiRequestTimeout);
         	content += '<div class="infoPosition">'+marker.position.lat().toFixed(5) + ' ' + marker.position.lng().toFixed(5)+'</div>';
 	    	infowindow.setContent(content);
        		showListings();
 			viewModel.showError(false);
 			viewModel.error('');
         }
+    }).fail( function( response , status, error){
+        //console.log(content);
+		viewModel.showError(true);
+        viewModel.error('Error loading data');
+        largeInfoWindow.setContent('Error to load data');
     });
         //console.log(content);
-		
     }
 
 function showMarker(value){

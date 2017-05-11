@@ -5,38 +5,41 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+  	<link rel="stylesheet"  href="css/style.css">
 
 </head>
 <body>
 
 <div class="container">
+<header>
 	<div class="options-box">
-		<h1>Neighbourhood Map</h1>
-		<hr>
-		<div id="error" data-bind="text: error, visible: showError">
-		</div>
-		<div>
-			<input id="show-listings" type="button" data-bind="click: showListings" value="Show">
-			<input id="hide-listings" type="button" data-bind="click: hideListings" value="Hide">
-		</div>
-		<article>
-		<div><center>Search By Name</center></div>
-			<input type="search" class="search" placeholder="Choose an address from the list..." data-bind="value: searchQuery, valueUpdate: 'keyup'">
-			<div class="searchList">
-				<ul class="list-group" data-bind="foreach: list">
-					<li class="list-group-item" data-bind="text: title, click: showMarker"></li>
-				</ul>
-		</article>
+		<aside>
+			<h1>Neighbourhood Map</h1>
+			<hr>
+			<div id="error" data-bind="text: error, visible: showError"></div>
+			<div>
+				<input id="show-listings" type="button" data-bind="click: showListings" value="Show">
+				<input id="hide-listings" type="button" data-bind="click: hideListings" value="Hide">
+			</div>
+			<article>
+			<div><center>Search By Name</center></div>
+				<input type="search" class="search" placeholder="Choose an address from the list..." data-bind="value: searchQuery, valueUpdate: 'keyup'">
+				<div class="searchList">
+					<ul class="list-group" data-bind="foreach: list">
+						<li class="list-group-item" data-bind="text: title, click: showMarker"></li>
+					</ul>
+			</article>
+		</aside>
 	</div>
+</header>
 	<div id="map"></div>
 </div>
 <footer>
-	<script src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyDXuoSOq2Phmjt4HqMeIfAE4QOp9nh4NEA&v=3&callback=initMap" onerror="googleapiError()" asyn defer></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script src="lib/knockout-3.2.0.js"></script>
 	<script src="app.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyDXuoSOq2Phmjt4HqMeIfAE4QOp9nh4NEA&v=3&callback=initMap" onerror="googleapiError()" asyn defer></script>
 </footer>
 </body>
 </html>
