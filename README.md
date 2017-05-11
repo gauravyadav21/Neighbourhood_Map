@@ -9,5 +9,5 @@ This is a single page application featuring a map of neighbourhood. Additional f
   <li>Wekipedia API</li>
   <li>Bootstrap</li>
 <ul>
-
+To run the project
 Open index.html
