@@ -1,6 +1,8 @@
 var map;
 var markers = [];
 var largeInfoWindow;
+var defaultIcon;
+var highlightedIcon;
 var locations = [
 	{title: 'Academic Block',location: {lat: 30.516489, lng: 76.659687}},
 	{title: 'Uco Bank',location: {lat: 30.516882, lng: 76.657332}},
@@ -50,8 +52,8 @@ function initMap() {
 	];
 
 	largeInfoWindow = new google.maps.InfoWindow();
-	var defaultIcon = makeMarkerIcon('FF0000');
-	var highlightedIcon = makeMarkerIcon('ADFF2F');
+	defaultIcon = makeMarkerIcon('FF0000');
+	highlightedIcon = makeMarkerIcon('ADFF2F');
 	map = new google.maps.Map(document.getElementById('map'),{
 		center: {lat:30.516147, lng: 76.659429},
 		styles: styles,
@@ -75,11 +77,8 @@ function initMap() {
 		marker.addListener('click', function(){
 			populateInfoWindow(this, largeInfoWindow);
 		});
-		marker.addListener('mouseover', function(){
+		marker.addListener('click', function(){
 			this.setIcon(highlightedIcon);
-		});
-		marker.addListener('mouseout', function(){
-			this.setIcon(defaultIcon);
 		});
 	}
 	showListings();
@@ -96,6 +95,7 @@ function initMap() {
 			infowindow.open(map,marker);
 			infowindow.addListener('closeclick', function(){
 				infowindow.marker = null;
+				marker.setIcon(defaultIcon);
 			});			
 	}	
 	

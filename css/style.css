@@ -3,7 +3,7 @@ html, body{
 	height : 100%;
 	margin: 0;
 	padding: 0;
-	width: 100%;
+	line-height: 1.5;
 	}
 #map{
 	bottom: 0px;
@@ -46,4 +46,19 @@ h1{
 .searchList{
 	overflow-y: scroll;
 	height: 400px; 
+}
+@media(max-width: 991px){
+	#map{
+		height: 62%;
+		border: 3px solid #999;
+		margin-top: 900px;
+		top: 0px;
+		margin-top: 650px;
+		left: 0px;"
+	}
+	.options-box{
+		height: 35%;
+		width: 100%;
+		margin-bottom: 20px;
+	}
 }
