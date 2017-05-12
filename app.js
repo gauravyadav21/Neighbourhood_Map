@@ -77,18 +77,18 @@ function initMap() {
 		marker.addListener('click', function(){
 			populateInfoWindow(this, largeInfoWindow);
 		});
-		marker.addListener('click', function(){
-			this.setIcon(highlightedIcon);
-		});
+
 	}
 	showListings();
 }
 
 	function populateInfoWindow(marker, infowindow){
-		//console.log( infowindow );
-		if(  infowindow.marker != marker && infowindow.marker !== undefined){
-
+		
+		for (var i = 0; i < markers.length; i++){
+			markers[i].setIcon(defaultIcon);
 		}
+		bounceMarker(marker);
+		marker.setIcon(highlightedIcon);
 			infowindow.marker = marker;
 			infowindow.setContent('');
 			getDetails( infowindow , marker);
@@ -97,8 +97,14 @@ function initMap() {
 				infowindow.marker = null;
 				marker.setIcon(defaultIcon);
 			});			
-	}	
-	
+	}
+	function bounceMarker(marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+        marker.setAnimation(null);
+    }, 700);
+}
+
 	function showListings(){
 		var bounds = new google.maps.LatLngBounds();
 		for(var i = 0; i < markers.length; i++){
@@ -123,10 +129,11 @@ function initMap() {
 		return markerImage;
 	}
 
-function googleapiError(){
-	viewModal.showError(true);
-	viewModal.error("Error while loading map");
-}
+googleApiError = () => {
+    viewModel.showError(true);
+    viewModel.error('Sorry! Maps not able to load');
+
+};
 
 function getDetails( infowindow , marker){
 	 content = '<div class="infoTitle"><h2>'+marker.title+'</h2></div>';
@@ -156,21 +163,22 @@ function getDetails( infowindow , marker){
 			viewModel.error('');
         }
     }).fail( function( response , status, error){
-        //console.log(content);
 		viewModel.showError(true);
         viewModel.error('Error loading data');
         largeInfoWindow.setContent('Error to load data');
     });
-        //console.log(content);
-    }
+}
 
 function showMarker(value){
-		for(var i = 0; i < markers.length; i++){
-			if(markers[i].title == value.title){
-				populateInfoWindow(markers[i], largeInfoWindow);
-				break;
-			}
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setIcon(defaultIcon);
+	}
+	for(var i = 0; i < markers.length; i++){
+		if(markers[i].title == value.title){
+			populateInfoWindow(markers[i], largeInfoWindow);
+			break;
 		}
+	}
 }
 
 //view model
@@ -204,6 +212,6 @@ var viewModel = {
 		}
 	}
 };
+viewModel.searchQuery.subscribe(viewModel.search);
 ko.applyBindings( viewModel );
 viewModel.init();
-viewModel.searchQuery.subscribe(viewModel.search);
