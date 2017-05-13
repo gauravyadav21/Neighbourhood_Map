@@ -74,13 +74,15 @@ function initMap() {
 			id: i
 		});
 		markers.push(marker);
-		marker.addListener('click', function(){
-			populateInfoWindow(this, largeInfoWindow);
-		});
-
+		marker.addListener('click', hello);
 	}
+
 	showListings();
 }
+	function hello(marker){
+		//console.log( this.title );
+		populateInfoWindow(this,largeInfoWindow);
+	}
 
 	function populateInfoWindow(marker, infowindow){
 		
@@ -153,7 +155,7 @@ function getDetails( infowindow , marker){
         		//console.log("url" + url);
         		content += '<ul><li><a href="'+url+'">' + article + '</a></li></ul>';
         	}
-        	if( articleList == 0){
+        	if( articleList.length < 1){
         		content += "<div>Details not found.</div>";
         	}
         	content += '<div class="infoPosition">'+marker.position.lat().toFixed(5) + ' ' + marker.position.lng().toFixed(5)+'</div>';
@@ -195,8 +197,8 @@ var viewModel = {
 	//search queries
 	search: function(query){
 		viewModel.list.removeAll();
-		for(var j = 0; j < markers.length; j++){
-			markers[j].setVisible(false);
+		for(var k = 0; k < markers.length; k++){
+			markers[k].setVisible(false);
 		}
 		for(var i = 0; i < locations.length; i++){
 			if(locations[i].title.toLowerCase().indexOf(query.toLowerCase()) >=0){
