@@ -74,7 +74,10 @@ function initMap() {
 			id: i
 		});
 		markers.push(marker);
-		marker.addListener('click',populateInfoWindow(this, largeInfoWindow));
+		marker.addListener('click', function(){
+			populateInfoWindow(this, largeInfoWindow);
+		});
+
 	}
 	showListings();
 }
@@ -150,7 +153,7 @@ function getDetails( infowindow , marker){
         		//console.log("url" + url);
         		content += '<ul><li><a href="'+url+'">' + article + '</a></li></ul>';
         	}
-        	if( articleList === 0){
+        	if( articleList == 0){
         		content += "<div>Details not found.</div>";
         	}
         	content += '<div class="infoPosition">'+marker.position.lat().toFixed(5) + ' ' + marker.position.lng().toFixed(5)+'</div>';
