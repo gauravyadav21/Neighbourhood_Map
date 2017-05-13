@@ -74,10 +74,7 @@ function initMap() {
 			id: i
 		});
 		markers.push(marker);
-		marker.addListener('click', function(){
-			populateInfoWindow(this, largeInfoWindow);
-		});
-
+		marker.addListener('click',populateInfoWindow(this, largeInfoWindow));
 	}
 	showListings();
 }
@@ -152,9 +149,9 @@ function getDetails( infowindow , marker){
         		url='http://en.wikipedia.org/wiki/'+article;
         		//console.log("url" + url);
         		content += '<ul><li><a href="'+url+'">' + article + '</a></li></ul>';
-        	};
-        	if( articleList == 0){
-        		content += "<div>Details not found.</div>"
+        	}
+        	if( articleList === 0){
+        		content += "<div>Details not found.</div>";
         	}
         	content += '<div class="infoPosition">'+marker.position.lat().toFixed(5) + ' ' + marker.position.lng().toFixed(5)+'</div>';
 	    	infowindow.setContent(content);
@@ -173,9 +170,9 @@ function showMarker(value){
 	for (var i = 0; i < markers.length; i++) {
 		markers[i].setIcon(defaultIcon);
 	}
-	for(var i = 0; i < markers.length; i++){
-		if(markers[i].title == value.title){
-			populateInfoWindow(markers[i], largeInfoWindow);
+	for(var j = 0; j < markers.length; j++){
+		if(markers[j].title == value.title){
+			populateInfoWindow(markers[j], largeInfoWindow);
 			break;
 		}
 	}
@@ -195,8 +192,8 @@ var viewModel = {
 	//search queries
 	search: function(query){
 		viewModel.list.removeAll();
-		for(var i = 0; i < markers.length; i++){
-			markers[i].setVisible(false);
+		for(var j = 0; j < markers.length; j++){
+			markers[j].setVisible(false);
 		}
 		for(var i = 0; i < locations.length; i++){
 			if(locations[i].title.toLowerCase().indexOf(query.toLowerCase()) >=0){
